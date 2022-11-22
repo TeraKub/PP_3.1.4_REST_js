@@ -23,48 +23,43 @@ public class AdminsController {
     }
 
     @GetMapping()
-    public String getAllUsers(Model model, Principal principal) {
-        model.addAttribute("users", userService.allUsers());
-        model.addAttribute("userAttr", userService.findByUsername(principal.getName()));
-        model.addAttribute("user_roles", roleService.listRoles());
-        model.addAttribute("newUser", new User());
+    public String getAllUsers() { //(Model model, Principal principal) {
+//        model.addAttribute("users", userService.allUsers());
+//        model.addAttribute("userAttr", userService.findByUsername(principal.getName()));
+//        model.addAttribute("user_roles", roleService.listRoles());
+//        model.addAttribute("newUser", new User());
         return "admin";
     }
 
-    @GetMapping("/pattern")
-    public String patternPage() {
-        return "pattern";
-    }
-
-    @GetMapping("/addNewUser")
-    public String addNewUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("user_roles", roleService.listRoles());
-        return "new";
-    }
-
-    @PostMapping()
-    public String saveUser(@ModelAttribute("user") User user) {
-        userService.saveNewUser(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/{id}")
-    public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("user_roles", roleService.listRoles());
-        return "edit";
-    }
-
-    @PatchMapping("/{id}")
-    public String saveEditUser(@ModelAttribute("user") User user) {
-        userService.saveEditUser(user);
-        return "redirect:/admin";
-    }
-
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
-        userService.delete(id);
-        return "redirect:/admin";
-    }
+//    @GetMapping("/addNewUser")
+//    public String addNewUser(Model model) {
+//        model.addAttribute("user", new User());
+//        model.addAttribute("user_roles", roleService.listRoles());
+//        return "new";
+//    }
+//
+//    @PostMapping()
+//    public String saveUser(@ModelAttribute("user") User user) {
+//        userService.saveNewUser(user);
+//        return "redirect:/admin";
+//    }
+//
+//    @GetMapping("/{id}")
+//    public String edit(@PathVariable("id") int id, Model model) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        model.addAttribute("user_roles", roleService.listRoles());
+//        return "edit";
+//    }
+//
+//    @PatchMapping("/{id}")
+//    public String saveEditUser(@ModelAttribute("user") User user) {
+//        userService.saveEditUser(user);
+//        return "redirect:/admin";
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public String delete(@PathVariable("id") int id) {
+//        userService.delete(id);
+//        return "redirect:/admin";
+//    }
 }

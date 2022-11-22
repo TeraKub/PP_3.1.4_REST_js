@@ -5,16 +5,15 @@ import com.maxchuma.pp_3_1_4.models.User;
 import com.maxchuma.pp_3_1_4.services.RoleService;
 import com.maxchuma.pp_3_1_4.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/admin/users")
 public class RESTAdminsController {
     private final UserService userService;
     private final RoleService roleService;
@@ -25,13 +24,13 @@ public class RESTAdminsController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/users")
+    @GetMapping()
     public List<User> getAllUsers() {
         List<User> allUsers = userService.allUsers();
         return allUsers;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public Optional<User> getUser(@PathVariable("id") int id) {
         Optional<User> user= userService.getUserById(id);
         if(user.isEmpty()) {
@@ -40,16 +39,25 @@ public class RESTAdminsController {
         return user;
     }
 
-    @PostMapping("/users")
+    @PostMapping()
     public User addNewUser(@RequestBody User user) {
         userService.saveNewUser(user);
         return user;
     }
 
-    @PutMapping("/users")
+    @PatchMapping()
     public User editUser(@RequestBody User user) {
         userService.saveEditUser(user);
         return user;
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        Optional<User> user = userService.getUserById(id);
+        if (user.isEmpty()) {
+            throw new NoSuchUserException(String.format("There is no user whits ID = %d in Database", id));
+        }
+        userService.delete(id);
+        return String.format("User with ID = %d was deleted", id);
+    }
 }

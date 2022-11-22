@@ -42,15 +42,15 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, int age, String instrument, String username, String password, List<Role> roles) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.instrument = instrument;
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-    }
+//    public User(String name, String surname, int age, String instrument, String username, String password, List<Role> roles) {
+//        this.name = name;
+//        this.surname = surname;
+//        this.age = age;
+//        this.instrument = instrument;
+//        this.username = username;
+//        this.password = password;
+//        this.roles = roles;
+//    }
 
     public int getId() {
         return id;
@@ -110,7 +110,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
         return getRoles();
     }
 

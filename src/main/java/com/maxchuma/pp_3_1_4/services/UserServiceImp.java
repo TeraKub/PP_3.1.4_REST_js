@@ -62,6 +62,17 @@ public class UserServiceImp implements UserService {
         }
         userRepository.saveAndFlush(user);
     }
+
+//    @Override
+//    @Transactional
+//    public void saveEditUser(User user) {
+//        Optional<User> userFromDb = userRepository.findById(user.getId());
+//        if (!userFromDb.get().getPassword().equals(user.getPassword())) {
+//            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        }
+//        userRepository.saveAndFlush(user);
+//    }
+
     @Override
     @Transactional
     public void saveEditUser(User user, int id) {
